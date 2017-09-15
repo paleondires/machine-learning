@@ -39,5 +39,29 @@ regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
 #Building the optimal model using Backward Elimination
+
+#Step 1: Select SL. SL = 0.05
+#Step 2: Fit full model with all possible predictors
 import statsmodels.formula.api as sm
-X = np.append(arr = X, values = np.ones((50, 1)))
+#Add column to represent constant
+X = np.append(arr = np.ones((50, 1)).astype(int), values = X, axis = 1)
+
+#Remove independent variables until no P value > SL
+X_opt = X[:, [0, 1, 2, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+X_opt = X[:, [0, 1, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+X_opt = X[:, [0, 3, 4, 5]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+X_opt = X[:, [0, 3]]
+regressor_OLS = sm.OLS(endog = y, exog = X_opt).fit()
+regressor_OLS.summary()
+
+#From this we know that the ideal model uses only the independent var for R&D
+
