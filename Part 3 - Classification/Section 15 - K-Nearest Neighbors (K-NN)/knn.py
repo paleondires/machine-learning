@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 """
-Classification Template
+KNN
 
 Created on Wed Sep 20 14:46:26 2017
 
@@ -31,6 +30,9 @@ X_train = sc_X.fit_transform(X_train)
 X_test = sc_X.transform(X_test)
 
 #Fitting classifier
+from sklearn.neighbors import KNeighborsClassifier
+classifier = KNeighborsClassifier(n_neighbors = 5, metric = 'minkowski', p = 2)
+classifier.fit(X_train, y_train)
 
 #Predicting the test set results
 y_pred = classifier.predict(X_test)
@@ -48,10 +50,10 @@ plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).re
 plt.xlim(X1.min(), X1.max())
 plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
-    plt.scatter(X_set[y_set == j,0], X_set[y_set == j, 1], c =ListedColormap(('red', 'green'))(i), label = j)
-plt.title('(Training)')
-plt.xlabel('X')
-plt.ylabel('Y')
+    plt.scatter(X_set[y_set == j,0], X_set[y_set == j, 1], c =ListedColormap(('red', 'green'))(i), label = j, edgecolors = 'black')
+plt.title('KNN (Training)')
+plt.xlabel('Age')
+plt.ylabel('Salary')
 plt.legend()
 plt.show()
 
@@ -62,9 +64,9 @@ plt.contourf(X1, X2, classifier.predict(np.array([X1.ravel(), X2.ravel()]).T).re
 plt.xlim(X1.min(), X1.max())
 plt.ylim(X2.min(), X2.max())
 for i, j in enumerate(np.unique(y_set)):
-    plt.scatter(X_set[y_set == j,0], X_set[y_set == j, 1], c =ListedColormap(('red', 'green'))(i), label = j)
-plt.title('(Test)')
-plt.xlabel('X')
-plt.ylabel('Y')
+    plt.scatter(X_set[y_set == j,0], X_set[y_set == j, 1], c =ListedColormap(('red', 'green'))(i), label = j, edgecolors = 'black')
+plt.title('KNN (Test)')
+plt.xlabel('Age')
+plt.ylabel('Salary')
 plt.legend()
 plt.show()
